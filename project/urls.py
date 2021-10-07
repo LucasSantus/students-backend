@@ -20,8 +20,8 @@ urlpatterns = [
     # re_path('api/students/', views.getAllStudents),
     # re_path('api/students/<int:pk>', views.getStudent),
     
-    re_path(r'^api/students/$', views.students_list),
-    re_path(r'^api/students/([0-9])$', views.students_detail),
+    path(r'api/students/', views.students_list),
+    path(r'api/students/<int:pk>/', views.students_detail),
     
     # re_path(r'^api/students/$', views.getAllStudents),
     # re_path(r'^api/students/([0-9])$', views.getStudent),
