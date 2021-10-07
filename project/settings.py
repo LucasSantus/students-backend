@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-qga!r9br!x&e7vqzdx3d%x4ni)!dw3=%pg19ns@5kvs7a99igg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -40,12 +39,14 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_APPS += [
-    'rest_framework',
+    'students',
     'corsheaders',
-    'students'
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
+    # CORS HEADERS
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,13 +54,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    # REST FRAMEWORK
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
 
 ROOT_URLCONF = 'project.urls'
 

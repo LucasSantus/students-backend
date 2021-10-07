@@ -5,13 +5,27 @@ from rest_framework import status
 from .models import Student
 from .serializers import *
 
+@api_view(['GET'])
+def getAllStudents(request):
+    student = Student.objects.all()
+    serializer = StudentSerializer(student, context={'request': request}, many=True)
+    return Response(serializer.student)
+
+@api_view(['GET'])
+def getStudent(request, pk):
+    try:
+        student = Student.objects.get(pk=pk)
+    except Student.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = StudentSerializer(student, context={'request': request}, many=True)
+    return Response(serializer.student)
+
 @api_view(['GET', 'POST'])
 def students_list(request):
     if request.method == 'GET':
         data = Student.objects.all()
-
         serializer = StudentSerializer(data, context={'request': request}, many=True)
-
         return Response(serializer.data)
 
     elif request.method == 'POST':
